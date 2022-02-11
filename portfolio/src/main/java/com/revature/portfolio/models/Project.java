@@ -1,12 +1,13 @@
 package com.revature.portfolio.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import javax.persistence.*;
 
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+
 @Entity
 @Table(name = "project")
 public class Project {
@@ -21,9 +22,24 @@ public class Project {
     private String deploymentlink;
     private String githublink;
     private Status status;
-    private String devUsername;
+
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "username")
+    private Developer devUsername;
+
+    private enum Status {
+        FINISH,UNFINISH
+    }
+
+    public Project(String name, String description, String deploymentlink, String githublink, Status status, Developer devUsername) {
+        this.name = name;
+        this.description = description;
+        this.deploymentlink = deploymentlink;
+        this.githublink = githublink;
+        this.status = status;
+        this.devUsername = devUsername;
+    }
 }
 
-enum Status {
-    FINISH,UNFINISH
-}
+

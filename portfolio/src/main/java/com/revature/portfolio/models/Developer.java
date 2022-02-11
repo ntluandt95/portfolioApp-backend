@@ -1,10 +1,12 @@
 package com.revature.portfolio.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -18,12 +20,20 @@ public class Developer {
     private String username;
     private String introduction;
     private Status status;
+    private String role;
 
     @OneToOne
     @MapsId
     @JoinColumn(name = "username")
     private User user;
 
+    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "devUsername")
+    private List<Resume> resumeList;
+
+    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "devUsername")
+    private List<Project> projectList;
 
     public enum Status{
         PUBLIC,
