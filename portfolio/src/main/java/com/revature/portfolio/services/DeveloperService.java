@@ -13,5 +13,5 @@ public interface DeveloperService {
     boolean deleteDeveloper(String username);
 
     //List<Developer> getDeveloperByRole();
-    List<Developer> getDeveloperByStatus(Developer.Status status);
+//    List<Developer> getDeveloperByStatus(Developer.Status status);
 }

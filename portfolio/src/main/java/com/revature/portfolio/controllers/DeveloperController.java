@@ -1,8 +1,10 @@
 package com.revature.portfolio.controllers;
 
 import com.revature.portfolio.models.Developer;
+import com.revature.portfolio.models.Project;
 import com.revature.portfolio.models.Resume;
 import com.revature.portfolio.services.DeveloperService;
+import com.revature.portfolio.services.ProjectService;
 import com.revature.portfolio.services.ResumeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,8 @@ public class DeveloperController {
     DeveloperService ds;
     @Autowired
     ResumeService rs;
+    @Autowired
+    ProjectService ps;
 
     @GetMapping("/developers")
     public List<Developer> getAllDevelopers() {
@@ -34,15 +38,15 @@ public class DeveloperController {
             return new ResponseEntity<Developer>(developer, HttpStatus.OK);
     }
 
-//    @GetMapping("/developers/{username}/Resume")
-//    public ResponseEntity<Resume> getDeveloper(@PathVariable("username") String username) {
-//        Developer developer = ds.getDeveloper(username);
-//
-//        if(developer == null)
-//            return new ResponseEntity<Developer>(HttpStatus.NOT_FOUND);
-//        else
-//            return new ResponseEntity<Developer>(developer, HttpStatus.OK);
-//    }
+    @GetMapping("/developers/{username}/resumes")
+    public List<Resume> getDeveloperResumes(@PathVariable("username") String username) {
+        return rs.getbyDeveloper(username);
+    }
+
+    @GetMapping("/developers/{username}/projects")
+    public List<Project> getDeveloperProjects(@PathVariable("username") String username) {
+        return ps.getbyDeveloper(username);
+    }
 
     @PutMapping(value="/developers/{username}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Developer> updateDeveloper(@PathVariable("username") String username,
