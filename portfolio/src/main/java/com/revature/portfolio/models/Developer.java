@@ -20,6 +20,7 @@ public class Developer {
     private String username;
     private String introduction;
     private Status status;
+    private String role;
 
     @OneToOne
     @MapsId
