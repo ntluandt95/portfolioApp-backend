@@ -1,6 +1,5 @@
 package com.revature.portfolio.services;
 
-import com.revature.portfolio.models.Project;
 import com.revature.portfolio.models.Resume;
 import com.revature.portfolio.repositories.ResumeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +26,11 @@ public class ResumeServiceImpl implements ResumeService{
     @Override
     public List<Resume> getAll() {
         return (List<Resume>) repo.findAll();
+    }
+
+    @Override
+    public List<Resume> getbyDeveloper(String username) {
+        return repo.findByDevUsername(username);
     }
 
     @Override
