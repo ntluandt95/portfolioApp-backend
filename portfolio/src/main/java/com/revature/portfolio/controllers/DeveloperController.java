@@ -1,6 +1,7 @@
 package com.revature.portfolio.controllers;
 
 import com.revature.portfolio.models.Developer;
+import com.revature.portfolio.models.Resume;
 import com.revature.portfolio.services.DeveloperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,8 +28,18 @@ public class DeveloperController {
         if(developer == null)
             return new ResponseEntity<Developer>(HttpStatus.NOT_FOUND);
         else
-            return new ResponseEntity<Developer>(HttpStatus.OK);
+            return new ResponseEntity<Developer>(developer, HttpStatus.OK);
     }
+
+//    @GetMapping("/developers/{username}/Resume")
+//    public ResponseEntity<Resume> getDeveloper(@PathVariable("username") String username) {
+//        Developer developer = ds.getDeveloper(username);
+//
+//        if(developer == null)
+//            return new ResponseEntity<Developer>(HttpStatus.NOT_FOUND);
+//        else
+//            return new ResponseEntity<Developer>(developer, HttpStatus.OK);
+//    }
 
     @PutMapping(value="/developers/{username}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Developer> updateDeveloper(@PathVariable("username") String username,
