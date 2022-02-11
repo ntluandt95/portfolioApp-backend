@@ -1,4 +1,4 @@
-package com.revature.portfolio.repositiories;
+package com.revature.portfolio.repositories;
 
 import com.revature.portfolio.models.Developer;
 import org.springframework.data.repository.CrudRepository;

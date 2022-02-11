@@ -1,4 +1,4 @@
-package com.revature.portfolio.repositiories;
+package com.revature.portfolio.repositories;
 
 import org.springframework.stereotype.Repository;
 

@@ -3,6 +3,7 @@ package com.revature.portfolio.controllers;
 import com.revature.portfolio.models.Developer;
 import com.revature.portfolio.models.Resume;
 import com.revature.portfolio.services.DeveloperService;
+import com.revature.portfolio.services.ResumeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,8 @@ public class DeveloperController {
 
     @Autowired
     DeveloperService ds;
+    @Autowired
+    ResumeService rs;
 
     @GetMapping("/developers")
     public List<Developer> getAllDevelopers() {
