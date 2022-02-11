@@ -1,5 +1,6 @@
 package com.revature.portfolio.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,9 @@ public class Resume {
     private String link;
     private String status;
 
-    private String devUsername;
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "username")
+    private Developer devUsername;
 }
 
