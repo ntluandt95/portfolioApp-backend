@@ -8,6 +8,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "project")
 public class Project {
 
     @Id

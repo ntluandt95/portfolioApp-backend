@@ -1,16 +1,28 @@
 package com.revature.portfolio.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "Developer")
+@Table(name = "developer")
 public class Developer {
 
     @Id
-    @Column(name="Username")
-    String username;
-    String introduction;
-    String status;
+    @Column(name="username")
+    private String username;
+    private String introduction;
+    private Status status;
+
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "username")
+    private User user;
 
 
     private enum Status{

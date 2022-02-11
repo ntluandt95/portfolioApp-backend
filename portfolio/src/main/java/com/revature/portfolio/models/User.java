@@ -1,21 +1,31 @@
 package com.revature.portfolio.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "User")
+@Table(name = "users") // cannot have a table named user because it is a keyword in postgres
 public class User {
 
     @Id
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "User", referencedColumnName = "Username")
-    @Column(name="Username")
-    String username;
-    String password;
-    String lastName;
-    String firstName;
-    String email;
-    String phoneNumber;
+    @Column(name="username")
+    private String username;
+    private String password;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String phoneNumber;
+    private Status status;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Developer developer;
 
 
     private enum Status{
