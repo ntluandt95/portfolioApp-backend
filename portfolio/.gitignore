@@ -34,3 +34,6 @@ application.properties
 
 ### VS Code ###
 .vscode/
+
+### Git ###
+*.orig
