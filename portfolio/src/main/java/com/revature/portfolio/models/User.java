@@ -1,8 +1,10 @@
 package com.revature.portfolio.models;
 
+import com.revature.portfolio.utility.HashGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 
@@ -32,4 +34,13 @@ public class User {
         PUBLIC,
         HIDDEN
     }
+
+    public void setPassword(String password) {
+       // this.password = HashGenerator.getInstance().getMessageDigestString(password);
+        this.password = new BCryptPasswordEncoder().encode(password);
+    }
+
+
+
+
 }
