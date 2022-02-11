@@ -25,7 +25,7 @@ public class Developer {
     private User user;
 
 
-    private enum Status{
+    public enum Status{
         PUBLIC,
         HIDDEN
     }

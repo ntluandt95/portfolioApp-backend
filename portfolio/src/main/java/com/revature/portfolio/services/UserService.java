@@ -1,2 +1,4 @@
-package com.revature.portfolio.services;public interface UserService {
+package com.revature.portfolio.services;
+
+public interface UserService {
 }

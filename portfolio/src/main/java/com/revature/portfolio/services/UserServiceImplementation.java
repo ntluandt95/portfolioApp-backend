@@ -1,2 +1,4 @@
-package com.revature.portfolio.services;public class UserServiceImplementation {
+package com.revature.portfolio.services;
+
+public class UserServiceImplementation {
 }
