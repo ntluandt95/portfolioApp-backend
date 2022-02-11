@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+
 @Entity
 public class Resume {
     @Id
@@ -25,5 +25,12 @@ public class Resume {
     @ManyToOne
     @JoinColumn(name = "username")
     private Developer devUsername;
+
+    public Resume(String title, String link, String status, Developer devUsername) {
+        this.title = title;
+        this.link = link;
+        this.status = status;
+        this.devUsername = devUsername;
+    }
 }
 

@@ -42,7 +42,7 @@ public class ProjectController {
     }
 
 
-    @DeleteMapping("movies/{id}")
+    @DeleteMapping("/Projects/{id}")
     public ResponseEntity<Project> deleteProject(@PathVariable("id") String id) {
         boolean success = service.delete(Integer.parseInt(id));
         return new ResponseEntity<>((success) ? HttpStatus.NO_CONTENT : HttpStatus.NOT_FOUND);
