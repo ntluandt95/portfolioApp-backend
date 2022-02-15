@@ -32,7 +32,7 @@ public class AuthController {
 
 
     @PostMapping("login")
-    public ResponseEntity<jwtTokenModel> login(@RequestBody UserView request) {
+    public ResponseEntity<User> login(@RequestBody UserView request) {
         try {
             Authentication authenticate = authenticationManager
                     .authenticate(
@@ -42,13 +42,12 @@ public class AuthController {
                     );
 
             User user = (User) authenticate.getPrincipal();
-            String token = jwtTokenUtil.generateAccessToken(user);
             return ResponseEntity.ok()
                     .header(
                             HttpHeaders.AUTHORIZATION,
-                            token
+                            jwtTokenUtil.generateAccessToken(user)
                     )
-                    .body(new jwtTokenModel(token));
+                    .body(user);
         } catch (BadCredentialsException ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
