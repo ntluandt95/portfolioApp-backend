@@ -2,6 +2,7 @@ package com.revature.portfolio.controllers;
 
 
 import com.revature.portfolio.jwt.JwtTokenUtil;
+import com.revature.portfolio.models.jwtTokenModel;
 import org.springframework.security.core.userdetails.User;
 import com.revature.portfolio.models.UserView;
 import org.springframework.http.HttpHeaders;
@@ -11,11 +12,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
@@ -27,8 +30,9 @@ public class AuthController {
         this.jwtTokenUtil = jwtTokenUtil;
     }
 
+
     @PostMapping("login")
-    public ResponseEntity<User> login(@RequestBody UserView request) {
+    public ResponseEntity<jwtTokenModel> login(@RequestBody UserView request) {
         try {
             Authentication authenticate = authenticationManager
                     .authenticate(
@@ -38,13 +42,13 @@ public class AuthController {
                     );
 
             User user = (User) authenticate.getPrincipal();
-
+            String token = jwtTokenUtil.generateAccessToken(user);
             return ResponseEntity.ok()
                     .header(
                             HttpHeaders.AUTHORIZATION,
-                            jwtTokenUtil.generateAccessToken(user)
+                            token
                     )
-                    .body(user);
+                    .body(new jwtTokenModel(token));
         } catch (BadCredentialsException ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
