@@ -1,5 +1,6 @@
 package com.revature.portfolio.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,8 +9,9 @@ import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+
 @Entity
+@Table(name = "resume")
 public class Resume {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +22,16 @@ public class Resume {
     private String link;
     private String status;
 
-    private String devUsername;
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "username")
+    private Developer devUsername;
+
+    public Resume(String title, String link, String status, Developer devUsername) {
+        this.title = title;
+        this.link = link;
+        this.status = status;
+        this.devUsername = devUsername;
+    }
 }
 
