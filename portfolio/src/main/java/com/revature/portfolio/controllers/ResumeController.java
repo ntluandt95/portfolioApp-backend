@@ -1,6 +1,8 @@
 package com.revature.portfolio.controllers;
 
 
+import com.revature.portfolio.PortfolioApplication;
+import com.revature.portfolio.jwt.JwtTokenUtil;
 import com.revature.portfolio.models.Project;
 import com.revature.portfolio.models.Resume;
 import com.revature.portfolio.services.ProjectService;
@@ -32,12 +34,24 @@ public class ResumeController {
 
 
     @PostMapping(value = "/Resumes", consumes = "application/json", produces = "application/json")
-    public Resume addResume(@RequestBody Resume resume) {
+    public Resume addResume(@RequestBody Resume resume, @RequestHeader("Authorization") String header) {
+        // Get authorization header and validate
+        final String token = header.split(" ")[1].trim();
+        JwtTokenUtil tokenUtil = PortfolioApplication.app.getBean(JwtTokenUtil.class);
+        if(token == null || !tokenUtil.getUsername(token).equals(resume.getDevUsername()) && !tokenUtil.getUsername(token).equals("admin"))
+            return null;
+
         return service.add(resume);
     }
 
     @PutMapping(value = "/Resumes/{id}", consumes = "application/json", produces = "application/json")
-    public Resume updateResume(@PathVariable("id") String id, @RequestBody Resume resume) {
+    public Resume updateResume(@PathVariable("id") String id, @RequestBody Resume resume,
+                               @RequestHeader("Authorization") String header) {
+        // Get authorization header and validate
+        final String token = header.split(" ")[1].trim();
+        JwtTokenUtil tokenUtil = PortfolioApplication.app.getBean(JwtTokenUtil.class);
+        if(token == null || !tokenUtil.getUsername(token).equals(resume.getDevUsername()) && !tokenUtil.getUsername(token).equals("admin"))
+            return null;
 
         resume.setId(Integer.parseInt(id));
         return service.update(resume);
@@ -45,7 +59,15 @@ public class ResumeController {
 
 
     @DeleteMapping("/Resumes/{id}")
-    public ResponseEntity<Project> deleteResume(@PathVariable("id") String id) {
+    public ResponseEntity<Project> deleteResume(@PathVariable("id") String id, @RequestHeader("Authorization") String header) {
+
+        Resume resume = service.get(Integer.parseInt(id));
+        // Get authorization header and validate
+        final String token = header.split(" ")[1].trim();
+        JwtTokenUtil tokenUtil = PortfolioApplication.app.getBean(JwtTokenUtil.class);
+        if(token == null || !tokenUtil.getUsername(token).equals(resume.getDevUsername()) && !tokenUtil.getUsername(token).equals("admin"))
+            return new ResponseEntity<Project>(HttpStatus.UNAUTHORIZED);
+
         boolean success = service.delete(Integer.parseInt(id));
         return new ResponseEntity<>((success) ? HttpStatus.NO_CONTENT : HttpStatus.NOT_FOUND);
     }

@@ -1,5 +1,7 @@
 package com.revature.portfolio.controllers;
 
+import com.revature.portfolio.PortfolioApplication;
+import com.revature.portfolio.jwt.JwtTokenUtil;
 import com.revature.portfolio.models.Developer;
 import com.revature.portfolio.models.Project;
 import com.revature.portfolio.models.Resume;
@@ -50,9 +52,14 @@ public class DeveloperController {
 
     @PutMapping(value="/developers/{username}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Developer> updateDeveloper(@PathVariable("username") String username,
-                                                     @RequestBody Developer developer) {
+                                                     @RequestBody Developer developer,
+                                                     @RequestHeader("Authorization") String header) {
+        // Get authorization header and validate
+        final String token = header.split(" ")[1].trim();
+        JwtTokenUtil tokenUtil = PortfolioApplication.app.getBean(JwtTokenUtil.class);
+        if(token == null || !tokenUtil.getUsername(token).equals(username) && !tokenUtil.getUsername(token).equals("admin"))
+            return new ResponseEntity<Developer>(HttpStatus.UNAUTHORIZED);
 
-        // TODO Handle Authorization
         developer.setUsername(username);
         Developer updated = ds.updateDeveloper(developer);
 
@@ -63,9 +70,15 @@ public class DeveloperController {
     }
 
     @DeleteMapping("/developers/{username}")
-    public ResponseEntity<Boolean> deleteMove(@PathVariable("username") String username) {
+    public ResponseEntity<Boolean> deleteMove(@PathVariable("username") String username,
+                                              @RequestHeader("Authorization") String header) {
+        // Get authorization header and validate
+        final String token = header.split(" ")[1].trim();
+        JwtTokenUtil tokenUtil = PortfolioApplication.app.getBean(JwtTokenUtil.class);
+        if(token == null || !tokenUtil.getUsername(token).equals(username) && !tokenUtil.getUsername(token).equals("admin"))
+            return new ResponseEntity<Boolean>(HttpStatus.UNAUTHORIZED);
 
-        // TODO Handle Authorization
+
         boolean success = ds.deleteDeveloper(username);
         if(success)
             return new ResponseEntity<Boolean>(success, HttpStatus.NO_CONTENT);
@@ -74,9 +87,15 @@ public class DeveloperController {
     }
 
     @PostMapping(value="/developers", consumes = "application/json")
-    public ResponseEntity<Developer> addDeveloper(@RequestBody Developer developer) {
+    public ResponseEntity<Developer> addDeveloper(@RequestBody Developer developer,
+                                                  @RequestHeader("Authorization") String header) {
 
-        // TODO handle collisions and authorization
+        // Get authorization header and validate
+        final String token = header.split(" ")[1].trim();
+        JwtTokenUtil tokenUtil = PortfolioApplication.app.getBean(JwtTokenUtil.class);
+        if(token == null || !tokenUtil.getUsername(token).equals(developer.getUsername()) && !tokenUtil.getUsername(token).equals("admin"))
+            return new ResponseEntity<Developer>(HttpStatus.UNAUTHORIZED);
+
         Developer added = ds.addDeveloper(developer);
         if(added == null)
             return new ResponseEntity<Developer>(HttpStatus.SERVICE_UNAVAILABLE);
