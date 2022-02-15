@@ -71,6 +71,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/Resumes/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/Projects/**").permitAll()
                 // Our private endpoints
+                .antMatchers("/actuator/**").hasAuthority(Role.ADMIN.toString())
                 .anyRequest().authenticated();
 
         // Add JWT token filter

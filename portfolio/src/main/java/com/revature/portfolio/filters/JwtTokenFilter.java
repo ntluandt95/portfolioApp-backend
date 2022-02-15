@@ -1,10 +1,12 @@
 package com.revature.portfolio.filters;
 
+import com.revature.portfolio.config.Role;
 import com.revature.portfolio.jwt.JwtTokenUtil;
 import com.revature.portfolio.repositories.UserRepo;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -54,7 +56,11 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         com.revature.portfolio.models.User tokenUser = userRepo
                 .findById(jwtTokenUtil.getUsername(token))
                 .orElse(null);
-        UserDetails userDetails = new User(tokenUser.getUsername(), tokenUser.getPassword(), new ArrayList<>());
+        if(tokenUser == null)
+            return;
+        ArrayList<GrantedAuthority> authorities = new ArrayList<>();
+        if(tokenUser.getUsername().equals("admin")) authorities.add(Role.ADMIN);
+        UserDetails userDetails = new User(tokenUser.getUsername(), tokenUser.getPassword(), authorities);
 
         UsernamePasswordAuthenticationToken
                 authentication = new UsernamePasswordAuthenticationToken(
