@@ -1,6 +1,5 @@
 package com.revature.portfolio.services;
 
-import com.revature.portfolio.utility.HashGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +18,10 @@ public class AuthService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        return new User(userService.getUser(username).getUsername(), userService.getUser(username).getPassword(), new ArrayList<>());
+        com.revature.portfolio.models.User user = userService.getUser(username);
+        if(user == null)
+            throw new UsernameNotFoundException("The username: " + username +" was not found.");
+
+        return new User(user.getUsername(),user.getPassword(), new ArrayList<>());
     }
 }

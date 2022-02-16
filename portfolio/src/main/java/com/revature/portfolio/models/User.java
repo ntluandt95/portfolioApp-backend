@@ -1,9 +1,13 @@
 package com.revature.portfolio.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.revature.portfolio.PortfolioApplication;
 import com.revature.portfolio.utility.HashGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.boot.SpringApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
@@ -25,19 +29,20 @@ public class User {
     private String phoneNumber;
     private Status status;
 
+    @JsonManagedReference
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private Developer developer;
 
 
-    private enum Status{
+    public enum Status{
         PUBLIC,
         HIDDEN
     }
 
     public void setPassword(String password) {
-       // this.password = HashGenerator.getInstance().getMessageDigestString(password);
-        this.password = new BCryptPasswordEncoder().encode(password);
+        BCryptPasswordEncoder encoder = PortfolioApplication.app.getBean(BCryptPasswordEncoder.class);
+        this.password = encoder.encode(password);
     }
 
 
