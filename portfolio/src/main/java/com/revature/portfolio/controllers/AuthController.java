@@ -2,9 +2,8 @@ package com.revature.portfolio.controllers;
 
 
 import com.revature.portfolio.jwt.JwtTokenUtil;
-import com.revature.portfolio.models.jwtTokenModel;
 import org.springframework.security.core.userdetails.User;
-import com.revature.portfolio.models.UserView;
+import com.revature.portfolio.models.UserLogin;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +31,7 @@ public class AuthController {
 
 
     @PostMapping("login")
-    public ResponseEntity<User> login(@RequestBody UserView request) {
+    public ResponseEntity<User> login(@RequestBody UserLogin request) {
         try {
             Authentication authenticate = authenticationManager
                     .authenticate(

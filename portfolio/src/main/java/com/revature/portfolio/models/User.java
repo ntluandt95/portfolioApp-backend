@@ -1,5 +1,7 @@
 package com.revature.portfolio.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.revature.portfolio.PortfolioApplication;
 import com.revature.portfolio.utility.HashGenerator;
 import lombok.AllArgsConstructor;
@@ -27,12 +29,13 @@ public class User {
     private String phoneNumber;
     private Status status;
 
+    @JsonManagedReference
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private Developer developer;
 
 
-    private enum Status{
+    public enum Status{
         PUBLIC,
         HIDDEN
     }

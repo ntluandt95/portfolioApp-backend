@@ -1,9 +1,13 @@
 package com.revature.portfolio.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "developer")
+@JsonIdentityInfo(property = "username", generator=ObjectIdGenerators.PropertyGenerator.class)
 public class Developer {
 
     @Id
@@ -22,18 +27,20 @@ public class Developer {
     private Status status;
     private String role;
 
+    @JsonBackReference
     @OneToOne
-    @MapsId
     @JoinColumn(name = "username")
     private User user;
 
-    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "devUsername")
     private List<Resume> resumeList;
 
-    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "devUsername")
     private List<Project> projectList;
+
+    public Developer(String username){
+        this.username = username;
+    }
 
     public enum Status{
         PUBLIC,

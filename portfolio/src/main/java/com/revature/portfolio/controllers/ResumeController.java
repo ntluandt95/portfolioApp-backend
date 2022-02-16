@@ -38,7 +38,7 @@ public class ResumeController {
         // Get authorization header and validate
         final String token = header.split(" ")[1].trim();
         JwtTokenUtil tokenUtil = PortfolioApplication.app.getBean(JwtTokenUtil.class);
-        if(token == null || !tokenUtil.getUsername(token).equals(resume.getDevUsername()) && !tokenUtil.getUsername(token).equals("admin"))
+        if(token == null || !tokenUtil.getUsername(token).equals(resume.getDevUsername().getUsername()) && !tokenUtil.getUsername(token).equals("admin"))
             return null;
 
         return service.add(resume);
@@ -50,7 +50,7 @@ public class ResumeController {
         // Get authorization header and validate
         final String token = header.split(" ")[1].trim();
         JwtTokenUtil tokenUtil = PortfolioApplication.app.getBean(JwtTokenUtil.class);
-        if(token == null || !tokenUtil.getUsername(token).equals(resume.getDevUsername()) && !tokenUtil.getUsername(token).equals("admin"))
+        if(token == null || !tokenUtil.getUsername(token).equals(resume.getDevUsername().getUsername()) && !tokenUtil.getUsername(token).equals("admin"))
             return null;
 
         resume.setId(Integer.parseInt(id));
@@ -65,7 +65,7 @@ public class ResumeController {
         // Get authorization header and validate
         final String token = header.split(" ")[1].trim();
         JwtTokenUtil tokenUtil = PortfolioApplication.app.getBean(JwtTokenUtil.class);
-        if(token == null || !tokenUtil.getUsername(token).equals(resume.getDevUsername()) && !tokenUtil.getUsername(token).equals("admin"))
+        if(token == null || !tokenUtil.getUsername(token).equals(resume.getDevUsername().getUsername()) && !tokenUtil.getUsername(token).equals("admin"))
             return new ResponseEntity<Project>(HttpStatus.UNAUTHORIZED);
 
         boolean success = service.delete(Integer.parseInt(id));
