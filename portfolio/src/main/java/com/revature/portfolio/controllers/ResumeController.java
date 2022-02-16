@@ -17,6 +17,10 @@ public class ResumeController {
     @Autowired
     ResumeService service;
 
+    public ResumeController(ResumeService service) {
+        this.service = service;
+    }
+
     @GetMapping("/Resumes")
     public List<Resume> getAll() {
         return service.getAll();

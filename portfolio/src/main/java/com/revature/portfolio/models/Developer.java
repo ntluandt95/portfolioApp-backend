@@ -35,6 +35,10 @@ public class Developer {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "devUsername")
     private List<Project> projectList;
 
+    public Developer(String username) {
+        this.username = username;
+    }
+
     public enum Status{
         PUBLIC,
         HIDDEN

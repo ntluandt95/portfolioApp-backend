@@ -1,5 +1,6 @@
 package com.revature.portfolio.services;
 
+import com.revature.portfolio.models.Developer;
 import com.revature.portfolio.models.Project;
 
 import java.util.List;

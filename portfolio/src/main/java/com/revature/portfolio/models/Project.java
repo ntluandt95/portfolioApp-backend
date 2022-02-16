@@ -28,7 +28,7 @@ public class Project {
     @JoinColumn(name = "username")
     private Developer devUsername;
 
-    private enum Status {
+   public enum Status {
         FINISH,UNFINISH
     }
 

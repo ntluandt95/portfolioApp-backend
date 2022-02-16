@@ -15,6 +15,10 @@ public class ProjectController {
     @Autowired
     ProjectService service;
 
+    public ProjectController(ProjectService service){
+        this.service = service;
+    }
+
     @GetMapping("/Projects")
     public List<Project> getAll() {
         return service.getAll();
