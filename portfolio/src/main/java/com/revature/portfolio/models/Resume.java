@@ -15,7 +15,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "resume")
-@JsonIdentityInfo(property = "title", generator=ObjectIdGenerators.PropertyGenerator.class)
+//@JsonIdentityInfo(property = "id", generator=ObjectIdGenerators.PropertyGenerator.class)
 public class Resume {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

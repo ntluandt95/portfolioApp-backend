@@ -2,6 +2,7 @@ package com.revature.portfolio.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import javax.persistence.*;
@@ -12,7 +13,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "project")
-@JsonIdentityInfo(property = "name", generator= ObjectIdGenerators.PropertyGenerator.class)
+//@JsonIdentityInfo(property = "id", generator= ObjectIdGenerators.PropertyGenerator.class)
 public class Project {
 
     @Id
