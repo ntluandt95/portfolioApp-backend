@@ -27,7 +27,7 @@ public class ProjectController {
         return service.getAll();
     }
 
-    @GetMapping("/Projects/{id}")
+    @GetMapping("/project/{id}")
     public ResponseEntity<Project> getProject(@PathVariable("id") String id) {
         Project project = service.get(Integer.parseInt(id));
 

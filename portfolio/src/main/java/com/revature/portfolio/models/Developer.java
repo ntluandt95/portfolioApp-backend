@@ -42,9 +42,6 @@ public class Developer {
         this.username = username;
     }
 
-    public Developer(String username) {
-        this.username = username;
-    }
 
     public enum Status{
         PUBLIC,
