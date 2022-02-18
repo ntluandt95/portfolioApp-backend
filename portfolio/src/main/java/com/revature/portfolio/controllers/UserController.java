@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class UserController {
 
     @Autowired
@@ -74,6 +75,7 @@ public class UserController {
     @PostMapping(value="/users", consumes = "application/json")
     public ResponseEntity<User> addDeveloper(@RequestBody User user) {
 
+        System.out.println(user.toString());
         User added = us.addUser(user);
         if(added == null)
             return new ResponseEntity<User>(HttpStatus.SERVICE_UNAVAILABLE);

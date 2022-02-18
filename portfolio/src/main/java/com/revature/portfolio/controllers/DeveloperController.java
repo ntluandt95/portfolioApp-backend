@@ -14,8 +14,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin
 public class DeveloperController {
 
     @Autowired
@@ -87,20 +89,24 @@ public class DeveloperController {
     }
 
     @PostMapping(value="/developers", consumes = "application/json")
-    public ResponseEntity<Developer> addDeveloper(@RequestBody Developer developer,
-                                                  @RequestHeader("Authorization") String header) {
+    public ResponseEntity<Developer> addDeveloper(@RequestBody Developer developer){
 
         // Get authorization header and validate
-        final String token = header.split(" ")[1].trim();
-        JwtTokenUtil tokenUtil = PortfolioApplication.app.getBean(JwtTokenUtil.class);
-        if(token == null || !tokenUtil.getUsername(token).equals(developer.getUsername()) && !tokenUtil.getUsername(token).equals("admin"))
-            return new ResponseEntity<Developer>(HttpStatus.UNAUTHORIZED);
-
+//        final String token = header.split(" ")[1].trim();
+//        JwtTokenUtil tokenUtil = PortfolioApplication.app.getBean(JwtTokenUtil.class);
+//        if(token == null || !tokenUtil.getUsername(token).equals(developer.getUsername()) && !tokenUtil.getUsername(token).equals("admin"))
+//            return new ResponseEntity<Developer>(HttpStatus.UNAUTHORIZED);
+        System.out.println(developer.toString());
         Developer added = ds.addDeveloper(developer);
         if(added == null)
             return new ResponseEntity<Developer>(HttpStatus.SERVICE_UNAVAILABLE);
         else
             return new ResponseEntity<Developer>(added, HttpStatus.CREATED);
+    }
+
+    @GetMapping(value = "/search/{searchString}")
+    public List<Developer> search(@PathVariable("searchString") String searchString) {
+        return ds.getAllDevelopers().stream().filter(element -> element.toString().contains(searchString)).collect(Collectors.toList());
     }
 
 }

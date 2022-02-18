@@ -15,7 +15,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "resume")
-//@JsonIdentityInfo(property = "id", generator=ObjectIdGenerators.PropertyGenerator.class)
 public class Resume {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +34,16 @@ public class Resume {
         this.link = link;
         this.status = status;
         this.devUsername = devUsername;
+    }
+
+    @Override
+    public String toString() {
+        return "Resume{" +
+
+                ", title='" + title + '\'' +
+                ", link='" + link + '\'' +
+                ", status='" + status + '\'' +
+                '}';
     }
 }
 
