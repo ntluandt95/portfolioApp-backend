@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin
@@ -101,6 +102,11 @@ public class DeveloperController {
             return new ResponseEntity<Developer>(HttpStatus.SERVICE_UNAVAILABLE);
         else
             return new ResponseEntity<Developer>(added, HttpStatus.CREATED);
+    }
+
+    @GetMapping(value = "/search/{searchString}")
+    public List<Developer> search(@PathVariable("searchString") String searchString) {
+        return ds.getAllDevelopers().stream().filter(element -> element.toString().contains(searchString)).collect(Collectors.toList());
     }
 
 }

@@ -46,4 +46,16 @@ public class Developer {
         PUBLIC,
         HIDDEN
     }
+
+    @Override
+    public String toString() {
+        return "Developer{" +
+                "username='" + username + '\'' +
+                ", introduction='" + introduction + '\'' +
+                ", status=" + status +
+                ", role='" + role + '\'' +
+                ", resumeList=" + resumeList +
+                ", projectList=" + projectList +
+                '}';
+    }
 }

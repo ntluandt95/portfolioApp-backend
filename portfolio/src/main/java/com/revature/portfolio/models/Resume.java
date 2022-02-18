@@ -36,5 +36,15 @@ public class Resume {
         this.status = status;
         this.devUsername = devUsername;
     }
+
+    @Override
+    public String toString() {
+        return "Resume{" +
+
+                ", title='" + title + '\'' +
+                ", link='" + link + '\'' +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }
 

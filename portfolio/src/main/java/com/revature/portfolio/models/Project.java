@@ -42,6 +42,18 @@ public class Project {
         this.status = status;
         this.devUsername = devUsername;
     }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", deploymentlink='" + deploymentlink + '\'' +
+                ", githublink='" + githublink + '\'' +
+                ", status=" + status +
+                '}';
+    }
 }
 
 
