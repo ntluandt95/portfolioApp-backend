@@ -24,7 +24,7 @@ public class Project {
     private String name;
     private String description;
     private String deploymentlink;
-    
+    private String imgLink;
     private String githublink;
     private Status status;
 
@@ -36,10 +36,11 @@ public class Project {
         FINISH,UNFINISHED
     }
 
-    public Project(String name, String description, String deploymentlink, String githublink, Status status, Developer devUsername) {
+    public Project(String name, String description, String deploymentlink, String imgLink, String githublink, Status status, Developer devUsername) {
         this.name = name;
         this.description = description;
         this.deploymentlink = deploymentlink;
+        this.imgLink = imgLink;
         this.githublink = githublink;
         this.status = status;
         this.devUsername = devUsername;
