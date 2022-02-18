@@ -32,7 +32,7 @@ public class UserController {
         if(user == null)
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         else
-            return new ResponseEntity<User>(user, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
     @PutMapping(value="/users/{username}", consumes = "application/json", produces = "application/json")

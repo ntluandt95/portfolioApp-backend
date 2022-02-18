@@ -24,6 +24,7 @@ public class Project {
     private String name;
     private String description;
     private String deploymentlink;
+    
     private String githublink;
     private Status status;
 
