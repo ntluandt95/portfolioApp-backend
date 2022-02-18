@@ -15,7 +15,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "resume")
-
 public class Resume {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
