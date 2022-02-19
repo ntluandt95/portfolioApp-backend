@@ -30,7 +30,11 @@ public class Project {
     @JoinColumn(name = "username")
     private Developer devUsername;
 
+<<<<<<< Updated upstream
    public enum Status {
+=======
+    public enum Status {
+>>>>>>> Stashed changes
         FINISH,UNFINISHED
     }
 
