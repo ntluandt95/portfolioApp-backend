@@ -12,7 +12,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "project")
-@JsonIdentityInfo(property = "name", generator= ObjectIdGenerators.PropertyGenerator.class)
+//@JsonIdentityInfo(property = "id", generator= ObjectIdGenerators.PropertyGenerator.class)
 public class Project {
 
     @Id
