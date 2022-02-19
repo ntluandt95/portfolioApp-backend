@@ -24,12 +24,12 @@ public class ResumeController {
         this.service = service;
     }
 
-    @GetMapping("/Resumes")
+    @GetMapping("/resumes")
     public List<Resume> getAll() {
         return service.getAll();
     }
 
-    @GetMapping("/Resumes/{id}")
+    @GetMapping("/resumes/{id}")
     public ResponseEntity<Resume> getResume(@PathVariable("id") String id) {
         Resume resume = service.get(Integer.parseInt(id));
 
@@ -38,7 +38,7 @@ public class ResumeController {
     }
 
 
-    @PostMapping(value = "/Resumes", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "/resumes", consumes = "application/json", produces = "application/json")
     public Resume addResume(@RequestBody Resume resume, @RequestHeader("Authorization") String header) {
         // Get authorization header and validate
         final String token = header.split(" ")[1].trim();
@@ -49,7 +49,7 @@ public class ResumeController {
         return service.add(resume);
     }
 
-    @PutMapping(value = "/Resumes/{id}", consumes = "application/json", produces = "application/json")
+    @PutMapping(value = "/resumes/{id}", consumes = "application/json", produces = "application/json")
     public Resume updateResume(@PathVariable("id") String id, @RequestBody Resume resume,
                                @RequestHeader("Authorization") String header) {
         // Get authorization header and validate
@@ -63,7 +63,7 @@ public class ResumeController {
     }
 
 
-    @DeleteMapping("/Resumes/{id}")
+    @DeleteMapping("/resumes/{id}")
     public ResponseEntity<Project> deleteResume(@PathVariable("id") String id, @RequestHeader("Authorization") String header) {
 
         Resume resume = service.get(Integer.parseInt(id));
