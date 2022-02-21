@@ -25,6 +25,8 @@ public class Resume {
     private String link;
     private String status;
 
+
+
     @ManyToOne
     @JoinColumn(name = "username")
     private Developer devUsername;
@@ -45,5 +47,7 @@ public class Resume {
                 ", status='" + status + '\'' +
                 '}';
     }
+
+
 }
 

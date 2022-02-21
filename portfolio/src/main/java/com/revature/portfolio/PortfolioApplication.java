@@ -34,7 +34,7 @@ public class PortfolioApplication {
 				new UrlBasedCorsConfigurationSource();
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowCredentials(true);
-		config.setAllowedOrigins(List.of("https://localhost:3000","https://localhost:3001","https://you.server.domain.com"));
+		config.setAllowedOrigins(List.of("https://localhost:3000","https://localhost:3001","https://you.server.domain.com","http://localhost:3000","http://localhost:3001","http://you.server.domain.com"));
 		config.setExposedHeaders(List.of("Authorization"));
 		config.addAllowedHeader("*");
 		config.addAllowedMethod("*");
