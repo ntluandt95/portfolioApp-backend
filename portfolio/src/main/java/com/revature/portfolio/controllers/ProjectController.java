@@ -38,7 +38,7 @@ public class ProjectController {
         // Get authorization header and validate
         final String token = header.split(" ")[1].trim();
         JwtTokenUtil tokenUtil = PortfolioApplication.app.getBean(JwtTokenUtil.class);
-        if(token == null || !tokenUtil.getUsername(token).equals(project.getDevUsername().getUsername()) && !tokenUtil.getUsername(token).equals("admin"))
+        if(token == null || !tokenUtil.getUsername(token).equals(project.getDevUsername().getUsername()) || !tokenUtil.getUsername(token).equals("admin"))
             return null;
 
         return service.add(project);
@@ -50,7 +50,7 @@ public class ProjectController {
         // Get authorization header and validate
         final String token = header.split(" ")[1].trim();
         JwtTokenUtil tokenUtil = PortfolioApplication.app.getBean(JwtTokenUtil.class);
-        if(token == null || !tokenUtil.getUsername(token).equals(project.getDevUsername().getUsername()) && !tokenUtil.getUsername(token).equals("admin"))
+        if(token == null || !tokenUtil.getUsername(token).equals(project.getDevUsername().getUsername()) || !tokenUtil.getUsername(token).equals("admin"))
             return null;
 
         project.setId(Integer.parseInt(id));
@@ -66,7 +66,7 @@ public class ProjectController {
         // Get authorization header and validate
         final String token = header.split(" ")[1].trim();
         JwtTokenUtil tokenUtil = PortfolioApplication.app.getBean(JwtTokenUtil.class);
-        if(token == null || !tokenUtil.getUsername(token).equals(project.getDevUsername().getUsername()) && !tokenUtil.getUsername(token).equals("admin"))
+        if(token == null || !tokenUtil.getUsername(token).equals(project.getDevUsername().getUsername()) || !tokenUtil.getUsername(token).equals("admin"))
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
         boolean success = service.delete(Integer.parseInt(id));

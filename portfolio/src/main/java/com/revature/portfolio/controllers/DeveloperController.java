@@ -59,7 +59,7 @@ public class DeveloperController {
         // Get authorization header and validate
         final String token = header.split(" ")[1].trim();
         JwtTokenUtil tokenUtil = PortfolioApplication.app.getBean(JwtTokenUtil.class);
-        if(token == null || !tokenUtil.getUsername(token).equals(username) && !tokenUtil.getUsername(token).equals("admin"))
+        if(token == null || !tokenUtil.getUsername(token).equals(username) || !tokenUtil.getUsername(token).equals("admin"))
             return new ResponseEntity<Developer>(HttpStatus.UNAUTHORIZED);
 
         developer.setUsername(username);
@@ -77,25 +77,26 @@ public class DeveloperController {
         // Get authorization header and validate
         final String token = header.split(" ")[1].trim();
         JwtTokenUtil tokenUtil = PortfolioApplication.app.getBean(JwtTokenUtil.class);
-        if(token == null || !tokenUtil.getUsername(token).equals(username) && !tokenUtil.getUsername(token).equals("admin"))
+        if(token == null || !tokenUtil.getUsername(token).equals(username) || !tokenUtil.getUsername(token).equals("admin"))
             return new ResponseEntity<Boolean>(HttpStatus.UNAUTHORIZED);
 
 
         boolean success = ds.deleteDeveloper(username);
         if(success)
-            return new ResponseEntity<Boolean>(success, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<Boolean>(true, HttpStatus.NO_CONTENT);
         else
-            return new ResponseEntity<Boolean>(success, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
     }
 
     @PostMapping(value="/developers", consumes = "application/json")
-    public ResponseEntity<Developer> addDeveloper(@RequestBody Developer developer){
+    public ResponseEntity<Developer> addDeveloper(@RequestBody Developer developer,
+                                                  @RequestHeader("Authorization") String header){
 
         // Get authorization header and validate
-//        final String token = header.split(" ")[1].trim();
-//        JwtTokenUtil tokenUtil = PortfolioApplication.app.getBean(JwtTokenUtil.class);
-//        if(token == null || !tokenUtil.getUsername(token).equals(developer.getUsername()) && !tokenUtil.getUsername(token).equals("admin"))
-//            return new ResponseEntity<Developer>(HttpStatus.UNAUTHORIZED);
+        final String token = header.split(" ")[1].trim();
+        JwtTokenUtil tokenUtil = PortfolioApplication.app.getBean(JwtTokenUtil.class);
+        if(token == null || !tokenUtil.getUsername(token).equals(developer.getUsername()) || !tokenUtil.getUsername(token).equals("admin"))
+            return new ResponseEntity<Developer>(HttpStatus.UNAUTHORIZED);
         System.out.println(developer.toString());
         Developer added = ds.addDeveloper(developer);
         if(added == null)
