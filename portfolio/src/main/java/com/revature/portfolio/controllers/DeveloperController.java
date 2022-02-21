@@ -103,7 +103,8 @@ public class DeveloperController {
         JwtTokenUtil tokenUtil = PortfolioApplication.app.getBean(JwtTokenUtil.class);
         if(token == null || !tokenUtil.getUsername(token).equals(developer.getUsername()) || !tokenUtil.getUsername(token).equals("admin"))
             return new ResponseEntity<Developer>(HttpStatus.UNAUTHORIZED);
-        System.out.println(developer.toString());
+
+
         Developer added = ds.addDeveloper(developer);
         if(added == null)
             return new ResponseEntity<Developer>(HttpStatus.SERVICE_UNAVAILABLE);
