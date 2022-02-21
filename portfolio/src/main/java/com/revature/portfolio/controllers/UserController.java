@@ -41,7 +41,7 @@ public class UserController {
         // Get authorization header and validate
         final String token = header.split(" ")[1].trim();
         JwtTokenUtil tokenUtil = PortfolioApplication.app.getBean(JwtTokenUtil.class);
-        if(token == null || !tokenUtil.getUsername(token).equals(username) || !tokenUtil.getUsername(token).equals("admin"))
+        if(token == null || !tokenUtil.getUsername(token).equals(username) && !tokenUtil.getUsername(token).equals("admin"))
             return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
 
 
@@ -61,7 +61,7 @@ public class UserController {
         // Get authorization header and validate
         final String token = header.split(" ")[1].trim();
         JwtTokenUtil tokenUtil = PortfolioApplication.app.getBean(JwtTokenUtil.class);
-        if(token == null || !tokenUtil.getUsername(token).equals(username) || !tokenUtil.getUsername(token).equals("admin"))
+        if(token == null || !tokenUtil.getUsername(token).equals(username) && !tokenUtil.getUsername(token).equals("admin"))
             return new ResponseEntity<Boolean>(HttpStatus.UNAUTHORIZED);
 
 
