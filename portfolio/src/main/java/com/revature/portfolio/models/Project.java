@@ -33,7 +33,7 @@ public class Project {
     private Developer devUsername;
 
     private enum Status {
-        FINISH,UNFINISHED
+        FINISHED,UNFINISHED
     }
 
     public Project(String name, String description, String deploymentlink, String imgLink, String githublink, Status status, Developer devUsername) {

@@ -69,6 +69,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/users/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/developers/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/developers/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/search/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 .antMatchers(HttpMethod.GET, "/users").permitAll()
@@ -76,6 +77,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/developers/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/Resumes/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/Projects/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/Projects").permitAll()
+                .antMatchers(HttpMethod.POST, "/Projects/**").permitAll()
                 // Our private endpoints
                 .antMatchers("/actuator/**").hasAuthority(Role.ADMIN.toString())
                 .anyRequest().authenticated();

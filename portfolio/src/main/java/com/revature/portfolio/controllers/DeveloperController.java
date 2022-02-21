@@ -29,6 +29,7 @@ public class DeveloperController {
 
     @GetMapping("/developers")
     public List<Developer> getAllDevelopers() {
+
         return ds.getAllDevelopers();
     }
 
@@ -49,7 +50,12 @@ public class DeveloperController {
 
     @GetMapping("/developers/{username}/projects")
     public List<Project> getDeveloperProjects(@PathVariable("username") String username) {
-        return ps.getbyDeveloper(username);
+        try {
+            return ps.getAll().stream().filter(project -> project.getDevUsername().getUsername().equals(username)).collect(Collectors.toList());
+        }catch (NullPointerException e){
+            return null;
+        }
+
     }
 
     @PutMapping(value="/developers/{username}", consumes = "application/json", produces = "application/json")
