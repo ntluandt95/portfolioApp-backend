@@ -21,7 +21,6 @@ public class ProjectController {
 
     @GetMapping("/Projects")
     public List<Project> getAll() {
-        System.out.println(service.getAll());
         return service.getAll();
     }
 
