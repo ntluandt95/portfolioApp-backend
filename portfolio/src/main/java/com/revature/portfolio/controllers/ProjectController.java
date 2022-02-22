@@ -37,10 +37,10 @@ public class ProjectController {
     @PostMapping(value = "/Projects", consumes = "application/json", produces = "application/json")
     public Project addProject(@RequestBody Project project, @RequestHeader("Authorization") String header) {
         // Get authorization header and validate
-        final String token = header.split(" ")[1].trim();
-        JwtTokenUtil tokenUtil = PortfolioApplication.app.getBean(JwtTokenUtil.class);
-        if(token == null || !tokenUtil.getUsername(token).equals(project.getDevUsername().getUsername()) || !tokenUtil.getUsername(token).equals("admin"))
-            return null;
+//        final String token = header.split(" ")[1].trim();
+//        JwtTokenUtil tokenUtil = PortfolioApplication.app.getBean(JwtTokenUtil.class);
+//        if(token == null || !tokenUtil.getUsername(token).equals(project.getDevUsername().getUsername()) || !tokenUtil.getUsername(token).equals("admin"))
+//            return null;
 
         return service.add(project);
     }
