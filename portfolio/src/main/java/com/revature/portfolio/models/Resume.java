@@ -36,5 +36,13 @@ public class Resume {
         this.status = status;
         this.devUsername = devUsername;
     }
+
+    public Resume(int id, String title, String link, String status, Developer devUsername) {
+        this.id = id;
+        this.title = title;
+        this.link = link;
+        this.status = status;
+        this.devUsername = devUsername;
+    }
 }
 

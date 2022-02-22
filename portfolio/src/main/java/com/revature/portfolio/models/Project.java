@@ -31,14 +31,22 @@ public class Project {
     private Developer devUsername;
 
 
-
-
     public enum Status {
 
-        FINISH,UNFINISHED
+        FINISH, UNFINISHED
     }
 
     public Project(String name, String description, String deploymentlink, String githublink, Status status, Developer devUsername) {
+        this.name = name;
+        this.description = description;
+        this.deploymentlink = deploymentlink;
+        this.githublink = githublink;
+        this.status = status;
+        this.devUsername = devUsername;
+    }
+
+    public Project(int id, String name, String description, String deploymentlink, String githublink, Status status, Developer devUsername) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.deploymentlink = deploymentlink;
